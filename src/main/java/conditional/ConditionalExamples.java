@@ -10,7 +10,7 @@ public class ConditionalExamples {
     // Negative conditionals
     public void someMethod(Item[] items) {
         for (Item item : items) {
-            if (!isNotAgedBrie(item)) {
+            if (isAgedBrie(item)) {
                 System.out.println("I'm aged brie");
             } else {
                 System.out.println("I'm not aged brie");
@@ -20,14 +20,14 @@ public class ConditionalExamples {
 
     // encapsulate conditionals
     public void someOtherMethod(User user, Country currentCountry) {
-        if (user.age() >= 18 && user.country().equals(currentCountry)) {
+        if (user.canVote(currentCountry)) {
             System.out.println(user.name() + " can vote");
         } else {
             System.out.println(user.name() + " cannot vote");
         }
     }
 
-    private static boolean isNotAgedBrie(Item items) {
-        return !items.name().equals("Aged Brie");
+    private static boolean isAgedBrie(Item items) {
+        return items.name().equals("Aged Brie");
     }
 }
