@@ -15,25 +15,22 @@ import temporalcoupling.model.Test;
  */
 public class CourseAssessment {
 
-    private Level level;
-    private Test test;
-
     public String evaluate(Student student, Course course) {
-        fetchStudentLevel(student);
-        fetchMatchingTest(course);
-        return passingTest(student);
+        Level level = fetchStudentLevel(student); // Student -> Level
+        Test test = fetchMatchingTest(course, level); // Course, Level -> Test
+        return passingTest(student, test); // Student, Test -> TestResult
     }
 
-    private String passingTest(Student student) {
+    private String passingTest(Student student, Test test) {
         return student.passes(test);
     }
 
-    private void fetchMatchingTest(Course course) {
-        test = new Test(course.name() + "_" + level.name());
+    private Test fetchMatchingTest(Course course, Level level) {
+        return new Test(course.name() + "_" + level.name());
     }
 
-    private void fetchStudentLevel(Student student) {
-        level = switch (student.exp()) {
+    private Level fetchStudentLevel(Student student) {
+        return switch (student.exp()) {
             case 1 -> Level.BEG;
             case 2 -> Level.INTER;
             default -> Level.MASTER;
